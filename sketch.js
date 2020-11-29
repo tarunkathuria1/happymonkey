@@ -34,14 +34,13 @@ function setup() {
     game.getState();
     game.start();
 
-  monkey=createSprite(80,315,20,20);
-  monkey.addAnimation("moving",monkey_running);
-  monkey.scale=0.1;
-  
-ground=createSprite(400,350,900,10);
-ground.velocityX=-4;
-ground.x=ground.width/2;
-console.log(ground.x);  
+    ground=createSprite(400,350,900,10);
+    ground.velocityX=-4;
+    ground.x=ground.width/2;
+    console.log(ground.x);
+    
+    
+ 
   
  
 }
@@ -57,25 +56,17 @@ if(gameState === 1){
   clear();
   game.play();
 }
+if(gameState===2){
+  game.end();
+}
   
-    if (ground.x < 0){
-      ground.x = ground.width/2;
-    }
-    
-
-  if(keyDown("space")&& monkey.y >= 100) {
-        monkey.velocityY = -12;
-    }
-    
-    //add gravity
-    monkey.velocityY = monkey.velocityY + 0.8
-  
-    monkey.collide(ground);
+if (ground.x < 0){
+  ground.x = ground.width/2;
+}   
 
   
   
-  food();
-  obstacle();
+ 
   
 drawSprites();
    stroke("white");
@@ -90,25 +81,5 @@ drawSprites();
   text("Survival Time; "+survivalTime,100,50);
 }
 
-function food() {
-  if (frameCount % 80 === 0) {
-    var banana = createSprite(600,50,40,10);
-    banana.y = Math.round(random(120,200));
- banana.addImage(bananaImage);
-    banana.scale = 0.1;
-    banana.velocityX = -3;
-    banana.lifetime = 200;
-  }
-}
 
-function obstacle() {
-  if (frameCount % 300 === 0) {
-    var obstacle = createSprite(400,320,40,10);
-    
-   obstacle.addImage(obstacleImage);
-    obstacle.scale = 0.2;
-    obstacle.velocityX = -3;
-    obstacle.lifetime = 200;
-  }
-}
 

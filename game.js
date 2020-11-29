@@ -23,11 +23,22 @@ class Game {
           playerCount = playerCountRef.val();
           player.getCount();
         }
-        monkey1=createSprite(100,200)
-        monkey2=createSprite(300,200)
-        monkey3=createSprite(500,200)
-        monkey4=createSprite(700,200)
-        monkeys=[monkey1,monkey2,monkey3,monkey4]
+        monkey=createSprite(80,315,20,20);
+        monkey.addAnimation("moving",monkey_running);
+        monkey.scale=0.1;
+        
+     
+      
+  
+    if(keyDown("space")&& monkey.y >= 100) {
+          monkey.velocityY = -12;
+      }
+      
+      //add gravity
+      monkey.velocityY = monkey.velocityY + 0.8
+    
+      monkey.collide(ground);
+
         form = new Form()
         form.display();
       }
@@ -47,10 +58,8 @@ class Game {
           index=index+1;
           x=x+200;
           y=displayHeight-allPlayers[plr].distance
-          monkeys[index-1].x=x
-          monkeys[index-1].y=y
+         
          if(index===player.index){
-           monkeys[index-1].shapeColor="red";
            camera.position.x=displayWidth/2
            camera.position.y=monkeys[index-1].y
          }
@@ -65,7 +74,35 @@ class Game {
         player.distance +=50
         player.update();
       }
+
+      if(player.distance>4090){
+        gameState=2
+      }
       drawSprites();
+    }
+    end(){
+        console.log("gameEnd");
+    }
+  }
+  function food() {
+    if (frameCount % 80 === 0) {
+      var banana = createSprite(600,50,40,10);
+      banana.y = Math.round(random(120,200));
+   banana.addImage(bananaImage);
+      banana.scale = 0.1;
+      banana.velocityX = -3;
+      banana.lifetime = 200;
+    }
+  }
+  
+  function obstacle() {
+    if (frameCount % 300 === 0) {
+      var obstacle = createSprite(400,320,40,10);
+      
+     obstacle.addImage(obstacleImage);
+      obstacle.scale = 0.2;
+      obstacle.velocityX = -3;
+      obstacle.lifetime = 200;
     }
   }
   
